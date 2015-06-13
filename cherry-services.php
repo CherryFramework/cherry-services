@@ -50,7 +50,8 @@ if ( !class_exists( 'Cherry_Services' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'admin' ),     5 );
 
 			// Load public-facing style sheet and JavaScript.
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 20 );
+			add_action( 'wp_enqueue_scripts',         array( $this, 'enqueue_assets' ), 20 );
+			add_filter( 'cherry_compiler_static_css', array( $this, 'add_style_to_compiler' ) );
 
 			// Adds options.
 			add_filter( 'cherry_layouts_options_list',   array( $this, 'add_cherry_options' ), 11 );
@@ -164,6 +165,22 @@ if ( !class_exists( 'Cherry_Services' ) ) {
 				plugins_url( 'public/assets/css/style.css', __FILE__ ), array(), CHERRY_SERVICES_VERSION
 			);
 
+		}
+
+		/**
+		 * Pass style handle to CSS compiler.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $handles CSS handles to compile.
+		 */
+		function add_style_to_compiler( $handles ) {
+			$handles = array_merge(
+				array( 'cherry-services' => plugins_url( 'public/assets/css/style.css', __FILE__ ) ),
+				$handles
+			);
+
+			return $handles;
 		}
 
 		/**
