@@ -258,7 +258,7 @@ class Cherry_Services_Data {
 				$this->query_args['tax_query'] = array(
 					array(
 						'taxonomy' => CHERRY_SERVICES_NAME . '_category',
-						'field'    => 'term_id',
+						'field'    => 'slug',
 						'terms'    => $cats
 					)
 				);
@@ -303,7 +303,7 @@ class Cherry_Services_Data {
 			$this->query_args['orderby'] = 'date';
 		}
 
-		if ( !in_array( $this->query_args['order'], array( 'ASC', 'DESC' ) ) ) {
+		if ( !in_array( strtoupper( $this->query_args['order'] ), array( 'ASC', 'DESC' ) ) ) {
 			$this->query_args['order'] = 'DESC';
 		}
 
