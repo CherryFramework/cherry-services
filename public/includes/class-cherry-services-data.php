@@ -375,6 +375,7 @@ class Cherry_Services_Data {
 	 * @return string
 	 */
 	public function get_services_loop( $query, $args ) {
+
 		global $post, $more;
 
 		// Item template.
@@ -393,6 +394,10 @@ class Cherry_Services_Data {
 		$output = '';
 		$macros = '/%%([a-zA-Z]+[^%]{2})(=[\'\"]([a-zA-Z0-9-_\s]+)[\'\"])?%%/';
 		$this->setup_template_data( $args );
+
+		if ( ! $query || ! is_object( $query ) ) {
+			return __( 'No services found', 'cherry-services' );
+		}
 
 		foreach ( $query->posts as $post ) {
 
