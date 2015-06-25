@@ -86,11 +86,9 @@ class Cherry_Services_Meta_Boxes {
 					),
 					'is-featured' => array(
 						'id'			=> 'is-featured',
-						'type'			=> 'checkbox',
+						'type'			=> 'switcher',
 						'title'			=> __('Is featured service:', 'cherry-services'),
-						'label'			=> '',
-						'description'	=> '',
-						'value'			=> '',
+						'value'			=> 'false'
 					)
 				)
 			)
@@ -147,7 +145,13 @@ class Cherry_Services_Meta_Boxes {
 			if ( ! isset( $field['id'] ) )
 				continue;
 
-			$field['value'] = ! empty( $meta[$field['id']] ) ? esc_attr( $meta[$field['id']] ) : $field['value'];
+			if ( ! empty( $meta[$field['id']] ) ) {
+				if ( is_array( $meta[$field['id']] ) ) {
+					$field['value'] = 'false';
+				} else {
+					$field['value'] = esc_attr( $meta[$field['id']] );
+				}
+			}
 
 			echo $builder->add_form_item( $field );
 
