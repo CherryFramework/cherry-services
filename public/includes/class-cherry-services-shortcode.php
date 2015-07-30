@@ -214,7 +214,7 @@ class Cherry_Services_Shortcode {
 					'type'    => 'responsive',
 					'default' => '12 6 3 none',
 					'name'    => __( 'Column class', 'cherry-team' ),
-					'desc'    => __( 'Column class for each items.', 'cherry-team' ),
+					'desc'    => __( 'Column class for each item.', 'cherry-team' ),
 				),
 				'template' => array(
 					'type'   => 'select',
@@ -265,7 +265,7 @@ class Cherry_Services_Shortcode {
 		);
 		$macros_buttons['order'] = array(
 			'id'    => 'cherry_order',
-			'value' => __( 'Order buttom (Services only)', 'cherry-services' ),
+			'value' => __( 'Order button (Services only)', 'cherry-services' ),
 			'open'  => '%%ORDER%%',
 			'close' => ''
 		);

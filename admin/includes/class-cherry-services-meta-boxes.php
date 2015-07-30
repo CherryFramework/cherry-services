@@ -87,7 +87,7 @@ class Cherry_Services_Meta_Boxes {
 					'is-featured' => array(
 						'id'			=> 'is-featured',
 						'type'			=> 'switcher',
-						'title'			=> __('Is featured service:', 'cherry-services'),
+						'title'			=> __('Is service featured:', 'cherry-services'),
 						'value'			=> 'false'
 					)
 				)
