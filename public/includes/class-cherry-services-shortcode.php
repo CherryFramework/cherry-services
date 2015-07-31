@@ -88,12 +88,14 @@ class Cherry_Services_Shortcode {
 	 * @return array               Modified array.
 	 */
 	public function shortcodes( $shortcodes ) {
-
-		$terms = get_terms( CHERRY_SERVICES_NAME . '_category' );
-
 		$terms_list = array();
-		if ( ! is_wp_error( $terms ) ) {
-			$terms_list = wp_list_pluck( $terms, 'name', 'slug' );
+
+		if ( did_action( 'wp_ajax_cherry_shortcodes_generator_settings' ) ) {
+			$terms = get_terms( CHERRY_SERVICES_NAME . '_category' );
+
+			if ( ! is_wp_error( $terms ) ) {
+				$terms_list = wp_list_pluck( $terms, 'name', 'slug' );
+			}
 		}
 
 		$sizes_list = array();
