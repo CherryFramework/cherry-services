@@ -1,6 +1,19 @@
 # Cherry Services
 A services management plugin for WordPress.
-__Сompatibility: *Cherry Framework v.4+*__
+Сompatibility: *Cherry Framework v.4+
+
+##Change log##
+
+#### v1.0.2 ####
+
+* UPD: Optimize a shortcode registration
+* UPD: Optimize conditional rule for a `pre_get_posts` filter
+* UPD: Text to translate
+
+#### v1.0.1 ####
+
+* ADD: compatibility for wpml-plugin
+* UPD: Updater logic
 
 ## Features
 * CPT services
