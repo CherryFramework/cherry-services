@@ -3,7 +3,7 @@
  * Plugin Name: Cherry Services
  * Plugin URI:  http://www.cherryframework.com/
  * Description: A services management plugin for WordPress.
- * Version:     1.0.1
+ * Version:     1.0.2-beta
  * Author:      Cherry Team
  * Author URI:  http://www.cherryframework.com/
  * Text Domain: cherry-services
@@ -81,7 +81,7 @@ if ( !class_exists( 'Cherry_Services' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_SERVICES_VERSION', '1.0.1' );
+			define( 'CHERRY_SERVICES_VERSION', '1.0.2-beta' );
 
 			/**
 			 * Set the slug of the plugin.
