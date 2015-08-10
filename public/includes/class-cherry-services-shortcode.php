@@ -88,12 +88,14 @@ class Cherry_Services_Shortcode {
 	 * @return array               Modified array.
 	 */
 	public function shortcodes( $shortcodes ) {
-
-		$terms = get_terms( CHERRY_SERVICES_NAME . '_category' );
-
 		$terms_list = array();
-		if ( ! is_wp_error( $terms ) ) {
-			$terms_list = wp_list_pluck( $terms, 'name', 'slug' );
+
+		if ( did_action( 'wp_ajax_cherry_shortcodes_generator_settings' ) ) {
+			$terms = get_terms( CHERRY_SERVICES_NAME . '_category' );
+
+			if ( ! is_wp_error( $terms ) ) {
+				$terms_list = wp_list_pluck( $terms, 'name', 'slug' );
+			}
 		}
 
 		$sizes_list = array();
@@ -214,7 +216,7 @@ class Cherry_Services_Shortcode {
 					'type'    => 'responsive',
 					'default' => '12 6 3 none',
 					'name'    => __( 'Column class', 'cherry-team' ),
-					'desc'    => __( 'Column class for each items.', 'cherry-team' ),
+					'desc'    => __( 'Column class for each item.', 'cherry-team' ),
 				),
 				'template' => array(
 					'type'   => 'select',
@@ -265,7 +267,7 @@ class Cherry_Services_Shortcode {
 		);
 		$macros_buttons['order'] = array(
 			'id'    => 'cherry_order',
-			'value' => __( 'Order buttom (Services only)', 'cherry-services' ),
+			'value' => __( 'Order button (Services only)', 'cherry-services' ),
 			'open'  => '%%ORDER%%',
 			'close' => ''
 		);
