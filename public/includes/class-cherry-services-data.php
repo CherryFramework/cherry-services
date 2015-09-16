@@ -390,10 +390,10 @@ class Cherry_Services_Data {
 		 */
 		$template = apply_filters( 'cherry_services_item_template', $template, $args );
 
-		$count  = 1;
-		$output = '';
-		$macros = '/%%([a-zA-Z]+[^%]{2})(=[\'\"]([a-zA-Z0-9-_\s]+)[\'\"])?%%/';
-		$this->setup_template_data( $args );
+		$count     = 1;
+		$output    = '';
+		$macros    = '/%%([a-zA-Z]+[^%]{2})(=[\'\"]([a-zA-Z0-9-_\s]+)[\'\"])?%%/';
+		$callbacks = $this->setup_template_data( $args );
 
 		if ( ! $query || ! is_object( $query ) ) {
 			return __( 'No services found', 'cherry-services' );
@@ -448,6 +448,8 @@ class Cherry_Services_Data {
 
 			$output .= '</div><!--/.services-item-->';
 
+			$callbacks->clear_data();
+
 		}
 
 		// Restore the global $post variable.
@@ -481,6 +483,8 @@ class Cherry_Services_Data {
 		);
 
 		$this->post_data = apply_filters( 'cherry_services_shortcode_data_callbacks', $data, $atts );
+
+		return $callbacks;
 
 	}
 

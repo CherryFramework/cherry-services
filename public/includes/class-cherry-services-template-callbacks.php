@@ -28,36 +28,69 @@ class Cherry_Services_Template_Callbacks {
 	public $atts = array();
 
 	/**
+	 * Specific post data
+	 * @var array
+	 */
+	public $post_data = array();
+
+	/**
 	 * Current post services-related meta
 	 * @var array
 	 */
-	public static $post_meta = array();
+	public $post_meta = null;
 
 	function __construct( $atts ) {
 		$this->atts = $atts;
 	}
 
 	/**
-	 * Setup post meta varaiable
+	 * Clear post data after loop iteration
 	 *
-	 * @since 1.0.0
-	 * @param array  $post_meta  existing post meta array
+	 * @since  1.0.3
+	 * @return void
 	 */
-	static function setup_meta( $post_meta = null ) {
+	public function clear_data() {
+		$this->post_meta = null;
+		$this->post_data = array();
+	}
 
-		if ( null != $post_meta ) {
-			self::$post_meta = $post_meta;
-			return $post_meta;
+	/**
+	 * Get post meta
+	 *
+	 * @since 1.0.3
+	 */
+	public function get_meta() {
+		if ( null == $this->post_meta ) {
+			global $post;
+			$this->post_meta = get_post_meta( $post->ID, CHERRY_SERVICES_POSTMETA, true );
 		}
+		return $this->post_meta;
+	}
 
-		global $post;
+	/**
+	 * Get post title
+	 *
+	 * @since  1.0.3
+	 * @return string
+	 */
+	public function post_title() {
+		if ( ! isset( $this->post_data['title'] ) ) {
+			$this->post_data['title'] = get_the_title();
+		}
+		return $this->post_data['title'];
+	}
 
-		$post_meta = ( ! empty( self::$post_meta ) )
-						? self::$post_meta
-						: get_post_meta( $post->ID, CHERRY_SERVICES_POSTMETA, true );
-
-		return $post_meta;
-
+	/**
+	 * Get post permalink
+	 *
+	 * @since  1.0.3
+	 * @return string
+	 */
+	public function post_permalink() {
+		if ( ! isset( $this->post_data['permalink'] ) ) {
+			$this->post_data['permalink'] = get_permalink();
+		}
+		return $this->post_data['permalink'];
 	}
 
 	/**
@@ -76,7 +109,7 @@ class Cherry_Services_Template_Callbacks {
 			$title_after  = $this->atts['after_title'];
 		}
 
-		return sprintf( $format, get_the_title(), get_permalink(), $title_before, $title_after );
+		return sprintf( $format, $this->post_title(), $this->post_permalink(), $title_before, $title_after );
 	}
 
 	/**
@@ -97,7 +130,7 @@ class Cherry_Services_Template_Callbacks {
 			return;
 		}
 
-		$post_meta = Cherry_Services_Template_Callbacks::setup_meta();
+		$post_meta = $this->get_meta();
 
 		if ( isset( $post_meta['show_thumb'] ) && 'no' == $post_meta['show_thumb'] ) {
 			return;
@@ -119,10 +152,10 @@ class Cherry_Services_Template_Callbacks {
 		$image  = get_the_post_thumbnail(
 			$post->ID,
 			$size,
-			array( 'alt' => get_the_title() )
+			array( 'alt' => $this->post_title() )
 		);
 
-		return sprintf( $format, $image, get_permalink() );
+		return sprintf( $format, $image, $this->post_permalink() );
 	}
 
 	/**
@@ -131,7 +164,7 @@ class Cherry_Services_Template_Callbacks {
 	 */
 	public function get_icon() {
 
-		$post_meta = Cherry_Services_Template_Callbacks::setup_meta();
+		$post_meta = $this->get_meta();
 
 		if ( empty( $post_meta['font-icon'] ) ) {
 			return;
@@ -150,7 +183,7 @@ class Cherry_Services_Template_Callbacks {
 	 */
 	public function get_features() {
 
-		$post_meta = Cherry_Services_Template_Callbacks::setup_meta();
+		$post_meta = $this->get_meta();
 
 		if ( empty( $post_meta['fetures-text'] ) ) {
 			return;
@@ -215,7 +248,7 @@ class Cherry_Services_Template_Callbacks {
 	 */
 	public function get_price() {
 
-		$post_meta = Cherry_Services_Template_Callbacks::setup_meta();
+		$post_meta = $this->get_meta();
 
 		if ( empty( $post_meta['price'] ) ) {
 			return;
@@ -239,8 +272,8 @@ class Cherry_Services_Template_Callbacks {
 					? $this->atts['order_button_text']
 					: __( 'Order', 'cherry-services' );
 		$class  = esc_attr( $class );
-		$meta   = Cherry_Services_Template_Callbacks::setup_meta();
-		$url    = ! empty( $meta['order-url'] ) ? esc_url( $meta['order-url'] ) : get_permalink( $post->ID );
+		$meta   = $this->get_meta();
+		$url    = ! empty( $meta['order-url'] ) ? esc_url( $meta['order-url'] ) : $this->post_permalink();
 
 		return sprintf( $format, $text, $url, $class );
 
@@ -255,7 +288,7 @@ class Cherry_Services_Template_Callbacks {
 		$format = '<a href="%2$s" class="%3$s">%1$s</a>';
 		$text   = $this->atts['button_text'];
 		$class  = esc_attr( $class );
-		$url    = get_permalink();
+		$url    = $this->post_permalink();
 
 		return sprintf( $format, $text, $url, $class );
 
