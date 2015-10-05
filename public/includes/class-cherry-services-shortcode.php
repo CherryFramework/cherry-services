@@ -159,12 +159,6 @@ class Cherry_Services_Shortcode {
 					'name'     => __( 'Categories', 'cherry-services' ),
 					'desc'     => __( 'Select categories to show services from', 'cherry-services' )
 				),
-				'show_title' => array(
-					'type'    => 'bool',
-					'default' => 'yes',
-					'name' => __( 'Show service title?', 'cherry-services' ),
-					'desc'    => __( 'Show/hide service title?', 'cherry-services' )
-				),
 				'show_media' => array(
 					'type' => 'select',
 					'values' => array(
@@ -408,7 +402,6 @@ class Cherry_Services_Shortcode {
 			'order'             => 'DESC',
 			'categories'        => '',
 			'id'                => 0,
-			'show_title'        => true,
 			'show_media'        => 'icon',
 			'size'              => 'thumbnail',
 			'excerpt_length'    => 20,
@@ -443,12 +436,6 @@ class Cherry_Services_Shortcode {
 			$atts['size'] = intval( $atts['size'] );
 		} else {
 			$atts['size'] = esc_attr( $atts['size'] );
-		}
-
-		if ( isset( $atts['show_title'] ) && 'true' == $atts['show_title'] ) {
-			$atts['show_title'] = true;
-		} else {
-			$atts['show_title'] = false;
 		}
 
 		$atts['before_title'] = '<h3 class="cherry-services_title">';
