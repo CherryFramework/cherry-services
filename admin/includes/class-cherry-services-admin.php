@@ -90,17 +90,19 @@ class Cherry_Services_Admin {
 	 */
 	public function add_columns( $post_columns ) {
 
-		// Adds the checkbox column.
-		$columns['cb'] = $post_columns['cb'];
+		unset(
+			$post_columns[ 'taxonomy-' . CHERRY_SERVICES_NAME . '_category' ],
+			$post_columns['date']
+		);
 
-		// Add custom columns and overwrite the 'title' column.
-		$columns['title']     = __( 'Name', 'cherry-services' );
-		$columns['thumbnail'] = __( 'Photo', 'cherry-services' );
-		$columns['price']     = __( 'Price', 'cherry-services' );
-		$columns['date']      = __( 'Added', 'cherry-services' );
+		// Add custom columns.
+		$post_columns['title']     = __( 'Name', 'cherry-services' );
+		$post_columns['thumbnail'] = __( 'Photo', 'cherry-services' );
+		$post_columns['price']     = __( 'Price', 'cherry-services' );
+		$post_columns['date']      = __( 'Added', 'cherry-services' );
 
 		// Return the columns.
-		return $columns;
+		return $post_columns;
 	}
 
 	/**
@@ -118,8 +120,8 @@ class Cherry_Services_Admin {
 
 				$post_meta = get_post_meta( $post_id, CHERRY_SERVICES_POSTMETA, true );
 
-				if ( !empty( $post_meta ) ) {
-					echo ( ! empty( $post_meta['price'] ) ) ? $post_meta['price'] : '&mdash;';
+				if ( ! empty( $post_meta ) ) {
+					echo ( ! empty( $post_meta['price'] ) ) ? strip_tags( htmlspecialchars_decode( $post_meta['price'] ) ) : '&mdash;';
 				}
 
 				break;
