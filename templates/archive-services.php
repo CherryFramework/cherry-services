@@ -9,6 +9,8 @@
  * @copyright 2015 Cherry Team
  */
 
+global $wp_query;
+
 $args = array(
 	'template'     => 'image-box.tmpl',
 	'before_title' => '<h3 class="cherry-services_title">',
@@ -22,6 +24,7 @@ $args = array(
 	'col_md'       => '4',
 	'col_lg'       => 'none',
 	'limit'        => Cherry_Services_Templater::get_posts_per_archive_page(),
+	'categories'   => ! empty( $wp_query->query_vars['term'] ) ? $wp_query->query_vars['term'] : '',
 );
 $data = new Cherry_Services_Data;
 $data->the_services( $args );
