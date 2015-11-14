@@ -89,8 +89,8 @@ class Cherry_Services_Meta_Boxes {
 						'type'			=> 'switcher',
 						'title'			=> __('Is service featured:', 'cherry-services'),
 						'value'			=> 'false'
-					)
-				)
+					),
+				),
 			)
 		);
 
@@ -115,7 +115,7 @@ class Cherry_Services_Meta_Boxes {
 	 *
 	 * @since 1.0.0
 	 * @param object $post    Current post object.
-	 * @param array  $metabox
+	 * @param array  $metabox metabox attributes.
 	 */
 	public function callback_metabox( $post, $metabox ) {
 
@@ -175,8 +175,8 @@ class Cherry_Services_Meta_Boxes {
 	 * Save the meta when the post is saved.
 	 *
 	 * @since 1.0.0
-	 * @param int    $post_id
-	 * @param object $post
+	 * @param int    $post_id current post ID.
+	 * @param object $post    current post object.
 	 */
 	public function save_post( $post_id, $post ) {
 
@@ -222,9 +222,9 @@ class Cherry_Services_Meta_Boxes {
 	 *
 	 * @todo  personally sanitize item values by their keys
 	 *
-	 * @since  4.0.0
-	 * @param  mixed  &$item item value to sanitize
-	 * @param  string $key   sanitized item key
+	 * @since 4.0.0
+	 * @param mixed  $item item value to sanitize.
+	 * @param string $key  sanitized item key.
 	 */
 	public function sanitize_meta( &$item, $key ) {
 
@@ -239,12 +239,10 @@ class Cherry_Services_Meta_Boxes {
 	 * @return object
 	 */
 	public static function get_instance() {
-
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
 			self::$instance = new self;
 		}
-
 		return self::$instance;
 	}
 }

@@ -73,6 +73,7 @@ class Cherry_Services_Data {
 	 * @return string
 	 */
 	public function the_services( $args = '' ) {
+
 		/**
 		 * Filter the array of default arguments.
 		 *
@@ -118,6 +119,7 @@ class Cherry_Services_Data {
 		 * @param array Arguments.
 		 */
 		$args = apply_filters( 'cherry_the_services_args', $args );
+
 		$output = '';
 
 		/**
@@ -134,7 +136,7 @@ class Cherry_Services_Data {
 		global $wp_query;
 
 		$this->temp_query = $wp_query;
-		$wp_query = NULL;
+		$wp_query = null;
 		$wp_query = $query;
 
 		// Fix boolean.
@@ -151,11 +153,11 @@ class Cherry_Services_Data {
 
 		$css_class = '';
 
-		if ( !empty( $args['wrap_class'] ) ) {
+		if ( ! empty( $args['wrap_class'] ) ) {
 			$css_class .= esc_attr( $args['wrap_class'] ) . ' ';
 		}
 
-		if ( !empty( $args['class'] ) ) {
+		if ( ! empty( $args['class'] ) ) {
 			$css_class .= esc_attr( $args['class'] ) . ' ';
 		}
 
@@ -164,7 +166,7 @@ class Cherry_Services_Data {
 		// Open wrapper.
 		$output .= sprintf( '<div class="%s">', trim( $css_class ) );
 
-		if ( !empty( $args['title'] ) ) {
+		if ( ! empty( $args['title'] ) ) {
 			$output .= $args['before_title'] . $args['title'] . $args['after_title'];
 		}
 
@@ -191,7 +193,7 @@ class Cherry_Services_Data {
 			$output .= get_the_posts_pagination();
 		}
 
-		$wp_query = NULL;
+		$wp_query = null;
 		$wp_query = $this->temp_query;
 
 		/**
@@ -269,10 +271,10 @@ class Cherry_Services_Data {
 
 		if ( isset( $args['pager'] ) && ( 'true' == $args['pager'] ) ) :
 
-			if ( get_query_var('paged') ) {
-				$this->query_args['paged'] = get_query_var('paged');
-			} elseif ( get_query_var('page') ) {
-				$this->query_args['paged'] = get_query_var('page');
+			if ( get_query_var( 'paged' ) ) {
+				$this->query_args['paged'] = get_query_var( 'paged' );
+			} elseif ( get_query_var( 'page' ) ) {
+				$this->query_args['paged'] = get_query_var( 'page' );
 			} else {
 				$this->query_args['paged'] = 1;
 			}
@@ -299,11 +301,11 @@ class Cherry_Services_Data {
 		endif;
 
 		// Whitelist checks.
-		if ( !in_array( $this->query_args['orderby'], array( 'none', 'ID', 'author', 'title', 'date', 'modified', 'parent', 'rand', 'comment_count', 'menu_order', 'meta_value', 'meta_value_num' ) ) ) {
+		if ( ! in_array( $this->query_args['orderby'], array( 'none', 'ID', 'author', 'title', 'date', 'modified', 'parent', 'rand', 'comment_count', 'menu_order', 'meta_value', 'meta_value_num' ) ) ) {
 			$this->query_args['orderby'] = 'date';
 		}
 
-		if ( !in_array( strtoupper( $this->query_args['order'] ), array( 'ASC', 'DESC' ) ) ) {
+		if ( ! in_array( strtoupper( $this->query_args['order'] ), array( 'ASC', 'DESC' ) ) ) {
 			$this->query_args['order'] = 'DESC';
 		}
 
@@ -332,11 +334,11 @@ class Cherry_Services_Data {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param  array $matches found macros
+	 * @param  array $matches found macros.
 	 */
 	public function replace_callback( $matches ) {
 
-		if ( !is_array( $matches ) ) {
+		if ( ! is_array( $matches ) ) {
 			return '';
 		}
 
@@ -413,11 +415,11 @@ class Cherry_Services_Data {
 			$item_classes[] = ( $count % 2 ) ? 'odd' : 'even';
 
 			foreach ( array( 'col_xs', 'col_sm', 'col_md', 'col_lg' ) as $col ) {
-				if ( ! $args[$col] || 'none' == $args[$col] ) {
+				if ( ! $args[$col] || 'none' == $args[ $col ] ) {
 					continue;
 				}
-				$item_classes[] = str_replace( '_', '-', $col ) . '-' . absint( $args[$col] );
-				$item_classes[] = ( ( $count - 1 ) % floor( 12 / absint( $args[$col] ) ) ) ? '' : 'clear-' . str_replace( '_', '-', $col );
+				$item_classes[] = str_replace( '_', '-', $col ) . '-' . absint( $args[ $col ] );
+				$item_classes[] = ( ( $count - 1 ) % floor( 12 / absint( $args[ $col ] ) ) ) ? '' : 'clear-' . str_replace( '_', '-', $col );
 			}
 
 			$collapsed = ( 'pricing-table' == $args['layout'] ) ? 'collapse-col' : '';
@@ -503,14 +505,14 @@ class Cherry_Services_Data {
 		WP_Filesystem();
 		global $wp_filesystem;
 
-		if ( !$wp_filesystem->exists( $template ) ) { // Check for existence.
+		if ( ! $wp_filesystem->exists( $template ) ) { // Check for existence.
 			return false;
 		}
 
 		// Read the file.
 		$content = $wp_filesystem->get_contents( $template );
 
-		if ( !$content ) {
+		if ( ! $content ) {
 			return new WP_Error( 'reading_error', 'Error when reading file' ); // Return error object.
 		}
 
@@ -522,8 +524,9 @@ class Cherry_Services_Data {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param  string $template  template name
-	 * @param  string $shortcode shortcode name
+	 * @param  string $template  template name.
+	 * @param  string $shortcode shortcode name.
+	 * @return string
 	 */
 	public function get_template_by_name( $template, $shortcode ) {
 
@@ -546,7 +549,7 @@ class Cherry_Services_Data {
 			$file = $default;
 		}
 
-		if ( !empty( $file ) ) {
+		if ( ! empty( $file ) ) {
 			$content = self::get_contents( $file );
 		}
 
@@ -560,12 +563,10 @@ class Cherry_Services_Data {
 	 * @return object
 	 */
 	public static function get_instance() {
-
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
-
+		}
 		return self::$instance;
 	}
-
 }

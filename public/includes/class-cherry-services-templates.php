@@ -86,11 +86,6 @@ class Cherry_Services_Templater {
 	}
 
 	function set_posts_per_archive_page( $query ){
-		// if( ! is_admin()
-		// 	&& ( $query->is_post_type_archive( CHERRY_SERVICES_NAME ) || $query->is_tax( CHERRY_SERVICES_NAME . '_category' ) )
-		// 	&& $query->is_main_query() ) {
-		// 		$query->set( 'posts_per_page', self::$posts_per_archive_page );
-		// }
 
 		if ( ! is_admin()
 			&& $query->is_main_query()
@@ -163,7 +158,7 @@ class Cherry_Services_Templater {
 
 		$page_template_meta = get_post_meta( $post->ID, '_wp_page_template', true );
 
-		if ( !isset( $this->templates[ $page_template_meta ] ) ) {
+		if ( ! isset( $this->templates[ $page_template_meta ] ) ) {
 			return $template;
 		}
 
@@ -212,9 +207,9 @@ class Cherry_Services_Templater {
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
-
+		}
 		return self::$instance;
 	}
 }

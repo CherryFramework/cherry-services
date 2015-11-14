@@ -2,13 +2,22 @@
 /**
  * The Template for displaying single CPT Testimonial.
  *
+ * @package   Cherry_Services
+ * @author    Cherry Team
+ * @license   GPL-2.0+
+ * @link      http://www.cherryframework.com/
+ * @copyright 2015 Cherry Team
  */
 
 while ( have_posts() ) :
 
 		the_post(); ?>
 
-		<article <?php if ( function_exists( 'cherry_attr' ) ) cherry_attr( 'post' ); ?>>
+		<article <?php
+		if ( function_exists( 'cherry_attr' ) ) {
+			cherry_attr( 'post' );
+		}
+		?>>
 		<?php
 
 			do_action( 'cherry_post_before' );
@@ -28,6 +37,6 @@ while ( have_posts() ) :
 		?>
 		</article>
 
-		<?php do_action( 'cherry_post_after' ); ?>
+		<?php do_action( 'cherry_post_after' );
 
-<?php endwhile; ?>
+endwhile;

@@ -4,8 +4,11 @@
  *
  * The template for displaying CPT Services.
  *
- * @package Cherry_Services
- * @since   1.0.0
+ * @package   Cherry_Services
+ * @author    Cherry Team
+ * @license   GPL-2.0+
+ * @link      http://www.cherryframework.com/
+ * @copyright 2015 Cherry Team
  */
 
 if ( have_posts() ) :
@@ -32,7 +35,7 @@ if ( have_posts() ) :
 						'col_md'       => '4',
 						'col_lg'       => 'none',
 						'pager'        => true,
-						'limit'        => Cherry_Services_Templater::$posts_per_archive_page
+						'limit'        => Cherry_Services_Templater::$posts_per_archive_page,
 					);
 					$data = new Cherry_Services_Data;
 					$data->the_services( $args );
@@ -42,4 +45,4 @@ if ( have_posts() ) :
 
 	<?php endwhile;
 
-endif; ?>
+endif;

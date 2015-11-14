@@ -10,15 +10,20 @@
  * License:     GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Domain Path: /languages
+ *
+ * @package  Cherry Team
+ * @category Core
+ * @author   Cherry Team
+ * @license  GPL-2.0+
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 // If class 'Cherry_Services' not exists.
-if ( !class_exists( 'Cherry_Services' ) ) {
+if ( ! class_exists( 'Cherry_Services' ) ) {
 
 	/**
 	 * Sets up and initializes the Cherry Services plugin.
@@ -148,7 +153,7 @@ if ( !class_exists( 'Cherry_Services' ) ) {
 				$Cherry_Plugin_Update -> init( array(
 						'version'			=> CHERRY_SERVICES_VERSION,
 						'slug'				=> CHERRY_SERVICES_SLUG,
-						'repository_name'	=> CHERRY_SERVICES_SLUG
+						'repository_name'	=> CHERRY_SERVICES_SLUG,
 				));
 			}
 		}
@@ -206,8 +211,9 @@ if ( !class_exists( 'Cherry_Services' ) ) {
 		/**
 		 * Adds a option in `Grid -> Layouts` subsection.
 		 *
-		 * @since 1.0.0
-		 * @param array $sections
+		 * @since  1.0.0
+		 * @param  array $layouts_options default options list.
+		 * @return array
 		 */
 		public function add_cherry_options( $layouts_options ) {
 			$layouts_options['single-service-layout'] = array(
@@ -244,7 +250,7 @@ if ( !class_exists( 'Cherry_Services' ) ) {
 						'label'   => __( 'No sidebar', 'cherry-services' ),
 						'img_src' => get_template_directory_uri() . '/lib/admin/assets/images/svg/page-layout-fullwidth.svg',
 					),
-				)
+				),
 			);
 
 			return $layouts_options;
@@ -292,11 +298,10 @@ if ( !class_exists( 'Cherry_Services' ) ) {
 		 * @return object
 		 */
 		public static function get_instance() {
-
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance )
+			if ( null == self::$instance ) {
 				self::$instance = new self;
-
+			}
 			return self::$instance;
 		}
 	}

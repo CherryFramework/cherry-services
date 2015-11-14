@@ -9,6 +9,9 @@
  * @copyright 2014 Cherry Team
  */
 
+/**
+ * Define admin-area realted hooks
+ */
 class Cherry_Services_Admin {
 
 	/**
@@ -26,6 +29,7 @@ class Cherry_Services_Admin {
 	 * @return void
 	 */
 	public function __construct() {
+
 		// Load post meta boxes on the post editing screen.
 		add_action( 'load-post.php',     array( $this, 'load_post_meta_boxes' ) );
 		add_action( 'load-post-new.php', array( $this, 'load_post_meta_boxes' ) );
@@ -47,7 +51,7 @@ class Cherry_Services_Admin {
 
 		$screen = get_current_screen();
 
-		if ( !empty( $screen->post_type ) && CHERRY_SERVICES_NAME === $screen->post_type ) {
+		if ( ! empty( $screen->post_type ) && CHERRY_SERVICES_NAME === $screen->post_type ) {
 			require_once( CHERRY_SERVICES_DIR . 'admin/includes/class-cherry-services-meta-boxes.php' );
 		}
 
@@ -61,7 +65,7 @@ class Cherry_Services_Admin {
 	public function load_edit() {
 		$screen = get_current_screen();
 
-		if ( !empty( $screen->post_type ) && CHERRY_SERVICES_NAME === $screen->post_type ) {
+		if ( ! empty( $screen->post_type ) && CHERRY_SERVICES_NAME === $screen->post_type ) {
 			add_action( 'admin_head', array( $this, 'print_styles' ) );
 		}
 	}
@@ -71,7 +75,8 @@ class Cherry_Services_Admin {
 	 *
 	 * @since 1.0.0
 	 */
-	public function print_styles() { ?>
+	public function print_styles() {
+		?>
 		<style type="text/css">
 		.edit-php .wp-list-table td.thumbnail.column-thumbnail,
 		.edit-php .wp-list-table th.manage-column.column-thumbnail,
@@ -79,13 +84,14 @@ class Cherry_Services_Admin {
 			text-align: center;
 		}
 		</style>
-	<?php }
+		<?php
+	}
 
 	/**
 	 * Filters the columns on the "Services" screen.
 	 *
 	 * @since  1.0.0
-	 * @param  array $post_columns
+	 * @param  array $post_columns current post columns list.
 	 * @return array
 	 */
 	public function add_columns( $post_columns ) {
@@ -130,11 +136,11 @@ class Cherry_Services_Admin {
 
 				$thumb = get_the_post_thumbnail( $post_id, array( 50, 50 ) );
 
-				echo !empty( $thumb ) ? $thumb : '&mdash;';
+				echo ! empty( $thumb ) ? $thumb : '&mdash;';
 
 				break;
 
-			default :
+			default:
 				break;
 
 		}
@@ -152,7 +158,6 @@ class Cherry_Services_Admin {
 		if ( null == self::$instance ) {
 			self::$instance = new self;
 		}
-
 		return self::$instance;
 	}
 }
