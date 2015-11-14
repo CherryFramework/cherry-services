@@ -82,18 +82,18 @@ class Cherry_Services_Templater {
 	 *
 	 * @since  1.0.0
 	 * @param  object $query current query object.
-	 * @return void
+	 * @return void|bool false
 	 */
 	public function set_posts_per_archive_page( $query ) {
 
 		// Must work only for public.
 		if ( is_admin() ) {
-			return $query;
+			return false;
 		}
 
 		// And only for main query
 		if ( ! $query->is_main_query() ) {
-			return $query;
+			return false;
 		}
 
 		$slug = CHERRY_SERVICES_NAME;
@@ -110,7 +110,7 @@ class Cherry_Services_Templater {
 	 * Check if passed query is services taxonomy
 	 *
 	 * @since  1.0.4
-	 * @param  object $current query object.
+	 * @param  object $query current query object.
 	 * @return boolean
 	 */
 	public function is_services_tax( $query ) {
