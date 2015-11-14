@@ -96,10 +96,7 @@ class Cherry_Services_Templater {
 			return false;
 		}
 
-		$slug = CHERRY_SERVICES_NAME;
-		$tax  = $slug . '_category';
-
-		$is_archive = $query->is_post_type_archive( $slug );
+		$is_archive = $query->is_post_type_archive( CHERRY_SERVICES_NAME );
 
 		if ( $is_archive || $this->is_services_tax( $query ) ) {
 			$query->set( 'posts_per_page', self::get_posts_per_archive_page() );
@@ -114,7 +111,9 @@ class Cherry_Services_Templater {
 	 * @return boolean
 	 */
 	public function is_services_tax( $query ) {
-		return is_tax() && ! empty( $query->queried_object->taxonomy ) && ( $tax == $query->queried_object->taxonomy );
+
+		$tax = CHERRY_SERVICES_NAME . '_category';
+		return ! empty( $query->query_vars[ $tax ] );;
 	}
 
 	/**
@@ -181,7 +180,7 @@ class Cherry_Services_Templater {
 		global $post;
 
 		// check if we need archive template to include
-		if ( is_post_type_archive( CHERRY_SERVICES_NAME ) || is_tax( 'group' ) ) {
+		if ( is_post_type_archive( CHERRY_SERVICES_NAME ) || is_tax( CHERRY_SERVICES_NAME . '_category' ) ) {
 
 			$file = trailingslashit( CHERRY_SERVICES_DIR ) . 'templates/archive-services.php';
 
