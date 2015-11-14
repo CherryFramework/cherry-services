@@ -30,7 +30,7 @@ class Cherry_Services_Templater {
 	 * @since 1.0.0
 	 * @var   integer
 	 */
-	public static $posts_per_archive_page = 6;
+	public static $posts_per_archive_page = null;
 
 	/**
 	 * The array of templates that this plugin tracks.
@@ -75,33 +75,66 @@ class Cherry_Services_Templater {
 		$templates = wp_get_theme()->get_page_templates();
 		$templates = array_merge( $templates, $this->templates );
 
+	}
+
+	/**
+	 * Set posts number per services archive page
+	 *
+	 * @since  1.0.0
+	 * @param  object $query current query object.
+	 * @return void|bool false
+	 */
+	public function set_posts_per_archive_page( $query ) {
+
+		// Must work only for public.
+		if ( is_admin() ) {
+			return false;
+		}
+
+		// And only for main query
+		if ( ! $query->is_main_query() ) {
+			return false;
+		}
+
+		$is_archive = $query->is_post_type_archive( CHERRY_SERVICES_NAME );
+
+		if ( $is_archive || $this->is_services_tax( $query ) ) {
+			$query->set( 'posts_per_page', self::get_posts_per_archive_page() );
+		}
+	}
+
+	/**
+	 * Check if passed query is services taxonomy
+	 *
+	 * @since  1.0.4
+	 * @param  object $query current query object.
+	 * @return boolean
+	 */
+	public function is_services_tax( $query ) {
+
+		$tax = CHERRY_SERVICES_NAME . '_category';
+		return ! empty( $query->query_vars[ $tax ] );;
+	}
+
+	/**
+	 * Get number of posts per archive page
+	 *
+	 * @since  1.0.4
+	 * @return int
+	 */
+	public static function get_posts_per_archive_page() {
+
+		if ( null !== self::$posts_per_archive_page ) {
+			self::$posts_per_archive_page;
+		}
+
 		/**
 		 * Filter posts per archive page value
 		 * @var int
 		 */
-		self::$posts_per_archive_page = apply_filters(
-			'cherry_services_posts_per_archive_page',
-			self::$posts_per_archive_page
-		);
-	}
+		self::$posts_per_archive_page = apply_filters( 'cherry_services_posts_per_archive_page', 6 );
 
-	function set_posts_per_archive_page( $query ){
-		// if( ! is_admin()
-		// 	&& ( $query->is_post_type_archive( CHERRY_SERVICES_NAME ) || $query->is_tax( CHERRY_SERVICES_NAME . '_category' ) )
-		// 	&& $query->is_main_query() ) {
-		// 		$query->set( 'posts_per_page', self::$posts_per_archive_page );
-		// }
-
-		if ( ! is_admin()
-			&& $query->is_main_query()
-			&& (
-				$query->is_post_type_archive( CHERRY_SERVICES_NAME )
-				|| ( is_tax() && !empty( $query->queried_object->taxonomy ) && ( CHERRY_SERVICES_NAME . '_category' === $query->queried_object->taxonomy ) )
-				)
-			) {
-
-			$query->set( 'posts_per_page', self::$posts_per_archive_page );
-		}
+		return self::$posts_per_archive_page;
 	}
 
 	/**
@@ -125,7 +158,7 @@ class Cherry_Services_Templater {
 		}
 
 		// Since we've updated the cache, we need to delete the old cache.
-		wp_cache_delete( $cache_key , 'themes');
+		wp_cache_delete( $cache_key , 'themes' );
 
 		// Now add our template to the list of templates by merging our templates
 		// with the existing templates array from the cache.
@@ -147,14 +180,13 @@ class Cherry_Services_Templater {
 		global $post;
 
 		// check if we need archive template to include
-		if ( is_post_type_archive( CHERRY_SERVICES_NAME ) || is_tax( 'group' ) ) {
+		if ( is_post_type_archive( CHERRY_SERVICES_NAME ) || is_tax( CHERRY_SERVICES_NAME . '_category' ) ) {
 
 			$file = trailingslashit( CHERRY_SERVICES_DIR ) . 'templates/archive-services.php';
 
 			if ( file_exists( $file ) ) {
 				return $file;
 			}
-
 		}
 
 		if ( ! is_page( $post ) ) {
@@ -163,7 +195,7 @@ class Cherry_Services_Templater {
 
 		$page_template_meta = get_post_meta( $post->ID, '_wp_page_template', true );
 
-		if ( !isset( $this->templates[ $page_template_meta ] ) ) {
+		if ( ! isset( $this->templates[ $page_template_meta ] ) ) {
 			return $template;
 		}
 
@@ -192,6 +224,14 @@ class Cherry_Services_Templater {
 		return $template;
 	}
 
+	/**
+	 * Add custom sclasses post wrapper for services page.
+	 *
+	 * @since  1.0.0
+	 * @param  array  $atts    default classes array.
+	 * @param  string $context current post context.
+	 * @return array
+	 */
 	public function page_template_classes( $atts, $context ) {
 
 		if ( 'services-template' != $context ) {
@@ -212,9 +252,9 @@ class Cherry_Services_Templater {
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
-
+		}
 		return self::$instance;
 	}
 }

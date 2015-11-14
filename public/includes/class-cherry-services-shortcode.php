@@ -69,6 +69,7 @@ class Cherry_Services_Shortcode {
 	 * @since 1.0.0
 	 */
 	public function register_shortcode() {
+
 		/**
 		 * Filters a shortcode name.
 		 *
@@ -84,8 +85,8 @@ class Cherry_Services_Shortcode {
 	 * Filter to modify original shortcodes data and add [$this->name] shortcode.
 	 *
 	 * @since  1.0.0
-	 * @param  array   $shortcodes Original plugin shortcodes.
-	 * @return array               Modified array.
+	 * @param  array $shortcodes Original plugin shortcodes.
+	 * @return array             Modified array.
 	 */
 	public function shortcodes( $shortcodes ) {
 		$terms_list = array();
@@ -116,17 +117,17 @@ class Cherry_Services_Shortcode {
 					'step'    => 1,
 					'default' => 3,
 					'name'    => __( 'Limit', 'cherry-services' ),
-					'desc'    => __( 'Maximum number of services.', 'cherry-services' )
+					'desc'    => __( 'Maximum number of services.', 'cherry-services' ),
 				),
 				'order' => array(
 					'type' => 'select',
 					'values' => array(
 						'desc' => __( 'Descending', 'cherry-services' ),
-						'asc'  => __( 'Ascending', 'cherry-services' )
+						'asc'  => __( 'Ascending', 'cherry-services' ),
 					),
 					'default' => 'DESC',
 					'name' => __( 'Order', 'cherry-services' ),
-					'desc' => __( 'Posts order', 'cherry-services' )
+					'desc' => __( 'Posts order', 'cherry-services' ),
 				),
 				'orderby' => array(
 					'type' => 'select',
@@ -140,16 +141,16 @@ class Cherry_Services_Shortcode {
 						'modified'      => __( 'Last modified date', 'cherry-services' ),
 						'rand'          => __( 'Random', 'cherry-services' ),
 						'comment_count' => __( 'Comments number', 'cherry-services' ),
-						'menu_order'    => __( 'Menu order', 'cherry-services' )
+						'menu_order'    => __( 'Menu order', 'cherry-services' ),
 					),
 					'default' => 'date',
 					'name'    => __( 'Order by', 'cherry-services' ),
-					'desc'    => __( 'Order posts by', 'cherry-services' )
+					'desc'    => __( 'Order posts by', 'cherry-services' ),
 				),
 				'id' => array(
 					'default' => 0,
 					'name'    => __( 'Post ID\'s', 'cherry-services' ),
-					'desc'    => __( 'Enter comma separated ID\'s of the posts that you want to show', 'cherry-services' )
+					'desc'    => __( 'Enter comma separated ID\'s of the posts that you want to show', 'cherry-services' ),
 				),
 				'categories' => array(
 					'type'     => 'select',
@@ -157,24 +158,24 @@ class Cherry_Services_Shortcode {
 					'values'   => $terms_list,
 					'default'  => '',
 					'name'     => __( 'Categories', 'cherry-services' ),
-					'desc'     => __( 'Select categories to show services from', 'cherry-services' )
+					'desc'     => __( 'Select categories to show services from', 'cherry-services' ),
 				),
-				'show_title' => array(
+				'linked_title' => array(
 					'type'    => 'bool',
 					'default' => 'yes',
-					'name' => __( 'Show service title?', 'cherry-services' ),
-					'desc'    => __( 'Show/hide service title?', 'cherry-services' )
+					'name'    => __( 'Title as a link to post', 'cherry-shortcodes' ),
+					'desc'    => __( 'Linked title or plain text', 'cherry-shortcodes' ),
 				),
 				'show_media' => array(
 					'type' => 'select',
 					'values' => array(
 						'none'  => __( 'None', 'cherry-services' ),
-						'image' => __( 'Post ID', 'cherry-services' ),
-						'icon'  => __( 'Post author', 'cherry-services' )
+						'image' => __( 'Image', 'cherry-services' ),
+						'icon'  => __( 'Icon', 'cherry-services' ),
 					),
 					'default' => 'icon',
 					'name'    => __( 'Show media', 'cherry-services' ),
-					'desc'    => __( 'Select what media attachment to show', 'cherry-services' )
+					'desc'    => __( 'Select what media attachment to show', 'cherry-services' ),
 				),
 				'size' => array(
 					'type'    => 'select',
@@ -190,27 +191,27 @@ class Cherry_Services_Shortcode {
 					'step'    => 1,
 					'default' => 20,
 					'name'    => __( 'Excerpt Length', 'cherry-services' ),
-					'desc'    => __( 'Excerpt length (if used in template)', 'cherry-services' )
+					'desc'    => __( 'Excerpt length (if used in template)', 'cherry-services' ),
 				),
 				'button_text' => array(
 					'default' => __( 'Read More', 'cherry-services' ),
 					'name'    => __( 'More Button text', 'cherry-services' ),
-					'desc'    => __( 'Enter read more button text', 'cherry-services' )
+					'desc'    => __( 'Enter read more button text', 'cherry-services' ),
 				),
 				'order_button_text' => array(
 					'default' => __( 'Order', 'cherry-services' ),
 					'name'    => __( 'Order Button text', 'cherry-services' ),
-					'desc'    => __( 'Enter order button text', 'cherry-services' )
+					'desc'    => __( 'Enter order button text', 'cherry-services' ),
 				),
 				'layout' => array(
 					'type' => 'select',
 					'values' => array(
 						'boxes'         => __( 'Boxes', 'cherry-services' ),
-						'pricing-table' => __( 'Pricing Table', 'cherry-services' )
+						'pricing-table' => __( 'Pricing Table', 'cherry-services' ),
 					),
 					'default' => 'boxes',
 					'name'    => __( 'Layout type', 'cherry-services' ),
-					'desc'    => __( 'Select layout type', 'cherry-services' )
+					'desc'    => __( 'Select layout type', 'cherry-services' ),
 				),
 				'col' => array(
 					'type'    => 'responsive',
@@ -235,11 +236,11 @@ class Cherry_Services_Shortcode {
 				'class' => array(
 					'default' => '',
 					'name'    => __( 'Class', 'cherry-services' ),
-					'desc'    => __( 'Extra CSS class', 'cherry-services' )
+					'desc'    => __( 'Extra CSS class', 'cherry-services' ),
 				),
 			),
-			'icon'     => 'cogs', // Custom icon (font-awesome).
-			'function' => array( $this, 'do_shortcode' ) // Name of shortcode function.
+			'icon'     => 'cogs',
+			'function' => array( $this, 'do_shortcode' ),
 		);
 
 		return $shortcodes;
@@ -248,7 +249,9 @@ class Cherry_Services_Shortcode {
 	/**
 	 * Add services specific macros buttons into caousel shortcode
 	 *
-	 * @param  array  $macros_buttons  default macros buttons
+	 * @since  1.0.0
+	 * @param  array $macros_buttons default macros buttons.
+	 * @return array
 	 */
 	public function extend_carousel_macros( $macros_buttons ) {
 
@@ -256,25 +259,25 @@ class Cherry_Services_Shortcode {
 			'id'    => 'cherry_icon',
 			'value' => __( 'Icon (Services only)', 'cherry-services' ),
 			'open'  => '%%ICON%%',
-			'close' => ''
+			'close' => '',
 		);
 		$macros_buttons['features'] = array(
 			'id'    => 'cherry_features',
 			'value' => __( 'Features (Services only)', 'cherry-services' ),
 			'open'  => '%%FEATURES%%',
-			'close' => ''
+			'close' => '',
 		);
 		$macros_buttons['price'] = array(
 			'id'    => 'cherry_price',
 			'value' => __( 'Price (Services only)', 'cherry-services' ),
 			'open'  => '%%PRICE%%',
-			'close' => ''
+			'close' => '',
 		);
 		$macros_buttons['order'] = array(
 			'id'    => 'cherry_order',
 			'value' => __( 'Order button (Services only)', 'cherry-services' ),
 			'open'  => '%%ORDER%%',
-			'close' => ''
+			'close' => '',
 		);
 
 		return $macros_buttons;
@@ -283,11 +286,12 @@ class Cherry_Services_Shortcode {
 	/**
 	 * Add services macros data to process it in carousel shortcode
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 *
-	 * @param array $postdata  default data
-	 * @param array $post_id   processed post ID
-	 * @param array $atts      shortcode attributes
+	 * @param  array $postdata  default data.
+	 * @param  array $post_id   processed post ID.
+	 * @param  array $atts      shortcode attributes.
+	 * @return array
 	 */
 	public function add_carousel_data( $postdata, $post_id, $atts ) {
 
@@ -306,7 +310,9 @@ class Cherry_Services_Shortcode {
 	/**
 	 * Adds services template directory to shortcodes templater
 	 *
-	 * @param array  $target_dirs  existing target dirs
+	 * @since  1.0.0
+	 * @param  array $target_dirs existing target dirs.
+	 * @return array
 	 */
 	public function add_target_dir( $target_dirs ) {
 
@@ -320,8 +326,9 @@ class Cherry_Services_Shortcode {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array  $macros    current buttons array
-	 * @param string $shortcode shortcode name
+	 * @param  array  $macros_buttons current buttons array.
+	 * @param  string $shortcode      shortcode name.
+	 * @return array
 	 */
 	public function add_macros_buttons( $macros_buttons, $shortcode ) {
 
@@ -334,56 +341,56 @@ class Cherry_Services_Shortcode {
 				'id'    => 'cherry_title',
 				'value' => __( 'Title', 'cherry-services' ),
 				'open'  => '%%TITLE%%',
-				'close' => ''
+				'close' => '',
 			),
 			'image' => array(
 				'id'    => 'cherry_image',
 				'value' => __( 'Image', 'cherry-services' ),
 				'open'  => '%%IMAGE%%',
-				'close' => ''
+				'close' => '',
 			),
 			'icon' => array(
 				'id'    => 'cherry_icon',
 				'value' => __( 'Icon', 'cherry-services' ),
 				'open'  => '%%ICON%%',
-				'close' => ''
+				'close' => '',
 			),
 			'content' => array(
 				'id'    => 'cherry_content',
 				'value' => __( 'Content', 'cherry-services' ),
 				'open'  => '%%CONTENT%%',
-				'close' => ''
+				'close' => '',
 			),
 			'excerpt' => array(
 				'id'    => 'cherry_excerpt',
 				'value' => __( 'Short description', 'cherry-services' ),
 				'open'  => '%%EXCERPT%%',
-				'close' => ''
+				'close' => '',
 			),
 			'features' => array(
 				'id'    => 'cherry_features',
 				'value' => __( 'Features', 'cherry-services' ),
 				'open'  => '%%FEATURES%%',
-				'close' => ''
+				'close' => '',
 			),
 			'price' => array(
 				'id'    => 'cherry_price',
 				'value' => __( 'Price', 'cherry-services' ),
 				'open'  => '%%PRICE%%',
-				'close' => ''
+				'close' => '',
 			),
 			'order' => array(
 				'id'    => 'cherry_order',
 				'value' => __( 'Order button', 'cherry-services' ),
 				'open'  => '%%ORDER%%',
-				'close' => ''
+				'close' => '',
 			),
 			'more' => array(
 				'id'    => 'cherry_more',
 				'value' => __( 'More button', 'cherry-services' ),
 				'open'  => '%%MORE%%',
-				'close' => ''
-			)
+				'close' => '',
+			),
 		);
 
 		return $macros_buttons;
@@ -408,9 +415,9 @@ class Cherry_Services_Shortcode {
 			'order'             => 'DESC',
 			'categories'        => '',
 			'id'                => 0,
-			'show_title'        => true,
 			'show_media'        => 'icon',
 			'size'              => 'thumbnail',
+			'linked_title'      => 'yes',
 			'excerpt_length'    => 20,
 			'button_text'       => __( 'Read More', 'cherry-services' ),
 			'order_button_text' => __( 'Order', 'cherry-services' ),
@@ -445,12 +452,6 @@ class Cherry_Services_Shortcode {
 			$atts['size'] = esc_attr( $atts['size'] );
 		}
 
-		if ( isset( $atts['show_title'] ) && 'true' == $atts['show_title'] ) {
-			$atts['show_title'] = true;
-		} else {
-			$atts['show_title'] = false;
-		}
-
 		$atts['before_title'] = '<h3 class="cherry-services_title">';
 		$atts['after_title']  = '</h3>';
 
@@ -468,12 +469,11 @@ class Cherry_Services_Shortcode {
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance )
+		if ( null == self::$instance ) {
 			self::$instance = new self;
-
+		}
 		return self::$instance;
 	}
-
 }
 
 Cherry_Services_Shortcode::get_instance();

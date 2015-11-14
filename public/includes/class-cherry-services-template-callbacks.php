@@ -10,7 +10,7 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
@@ -39,6 +39,12 @@ class Cherry_Services_Template_Callbacks {
 	 */
 	public $post_meta = null;
 
+	/**
+	 * Constructor for the class
+	 *
+	 * @since 1.0.0
+	 * @param array $atts data attributes array.
+	 */
 	function __construct( $atts ) {
 		$this->atts = $atts;
 	}
@@ -99,7 +105,11 @@ class Cherry_Services_Template_Callbacks {
 	 */
 	public function get_title( $tag = null ) {
 
-		$format = '%3$s<a href="%2$s">%1$s</a>%4$s';
+		if ( 'no' !== $this->atts['linked_title'] ) {
+			$format = '%3$s<a href="%2$s">%1$s</a>%4$s';
+		} else {
+			$format = '%3$s%1$s%4$s';
+		}
 
 		if ( null !== $tag ) {
 			$title_before = "<{$tag} class='cherry-services_title'>";
@@ -291,7 +301,5 @@ class Cherry_Services_Template_Callbacks {
 		$url    = $this->post_permalink();
 
 		return sprintf( $format, $text, $url, $class );
-
 	}
-
 }
