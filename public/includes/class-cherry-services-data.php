@@ -107,7 +107,7 @@ class Cherry_Services_Data {
 			'col_sm'            => '12',
 			'col_md'            => '12',
 			'col_lg'            => '12',
-			'container'         => '<div class="services-listing">%s</div>'
+			'container'         => '<div class="services-listing">%s</div>',
 		), $args );
 
 		$args = wp_parse_args( $args, $defaults );
@@ -209,7 +209,7 @@ class Cherry_Services_Data {
 		wp_reset_query();
 		wp_reset_postdata();
 
-		if ( $args['echo'] != true ) {
+		if ( true !== $args['echo'] ) {
 			return $output;
 		}
 
@@ -261,8 +261,8 @@ class Cherry_Services_Data {
 					array(
 						'taxonomy' => CHERRY_SERVICES_NAME . '_category',
 						'field'    => 'slug',
-						'terms'    => $cats
-					)
+						'terms'    => $cats,
+					),
 				);
 			}
 		} else {
@@ -349,11 +349,11 @@ class Cherry_Services_Data {
 		$key = strtolower( $matches[1] );
 
 		// if key not found in data -return nothing
-		if ( ! isset( $this->post_data[$key] ) ) {
+		if ( ! isset( $this->post_data[ $key ] ) ) {
 			return '';
 		}
 
-		$callback = $this->post_data[$key];
+		$callback = $this->post_data[ $key ];
 
 		if ( ! is_callable( $callback ) ) {
 			return;
@@ -372,8 +372,8 @@ class Cherry_Services_Data {
 	 * Get services items.
 	 *
 	 * @since  1.0.0
-	 * @param  array         $query      WP_query object.
-	 * @param  array         $args       The array of arguments.
+	 * @param  array $query WP_query object.
+	 * @param  array $args  The array of arguments.
 	 * @return string
 	 */
 	public function get_services_loop( $query, $args ) {
@@ -415,7 +415,7 @@ class Cherry_Services_Data {
 			$item_classes[] = ( $count % 2 ) ? 'odd' : 'even';
 
 			foreach ( array( 'col_xs', 'col_sm', 'col_md', 'col_lg' ) as $col ) {
-				if ( ! $args[$col] || 'none' == $args[ $col ] ) {
+				if ( ! $args[ $col ] || 'none' == $args[ $col ] ) {
 					continue;
 				}
 				$item_classes[] = str_replace( '_', '-', $col ) . '-' . absint( $args[ $col ] );
@@ -464,7 +464,8 @@ class Cherry_Services_Data {
 	 * Prepare template data to replace
 	 *
 	 * @since  1.0.0
-	 * @param  array  $atts output attributes
+	 * @param  array $atts output attributes.
+	 * @return object
 	 */
 	function setup_template_data( $atts ) {
 
@@ -481,7 +482,7 @@ class Cherry_Services_Data {
 			'features' => array( $callbacks, 'get_features' ),
 			'price'    => array( $callbacks, 'get_price' ),
 			'order'    => array( $callbacks, 'get_order_button' ),
-			'more'     => array( $callbacks, 'get_more_button' )
+			'more'     => array( $callbacks, 'get_more_button' ),
 		);
 
 		$this->post_data = apply_filters( 'cherry_services_shortcode_data_callbacks', $data, $atts );
@@ -498,7 +499,7 @@ class Cherry_Services_Data {
 	 */
 	public static function get_contents( $template ) {
 
-		if ( !function_exists( 'WP_Filesystem' ) ) {
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
 			include_once( ABSPATH . '/wp-admin/includes/file.php' );
 		}
 

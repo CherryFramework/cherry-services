@@ -115,12 +115,13 @@ class Cherry_Services_Admin {
 	 * Add output for custom columns on the "menu items" screen.
 	 *
 	 * @since  1.0.0
-	 * @param  string $column
-	 * @param  int    $post_id
+	 * @param  string $column  current column name.
+	 * @param  int    $post_id current post ID.
+	 * @return void
 	 */
 	public function manage_columns( $column, $post_id ) {
 
-		switch( $column ) {
+		switch ( $column ) {
 
 			case 'price' :
 

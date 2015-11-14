@@ -25,6 +25,7 @@ while ( have_posts() ) :
 			$args = array(
 				'id'           => get_the_id(),
 				'template'     => 'single-service.tmpl',
+				'linked_title' => 'no',
 				'before_title' => '<h3 class="cherry-services_title">',
 				'after_title'  => '</h3>',
 				'container'    => false,

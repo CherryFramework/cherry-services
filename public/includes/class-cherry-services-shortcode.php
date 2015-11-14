@@ -85,8 +85,8 @@ class Cherry_Services_Shortcode {
 	 * Filter to modify original shortcodes data and add [$this->name] shortcode.
 	 *
 	 * @since  1.0.0
-	 * @param  array   $shortcodes Original plugin shortcodes.
-	 * @return array               Modified array.
+	 * @param  array $shortcodes Original plugin shortcodes.
+	 * @return array             Modified array.
 	 */
 	public function shortcodes( $shortcodes ) {
 		$terms_list = array();
@@ -123,7 +123,7 @@ class Cherry_Services_Shortcode {
 					'type' => 'select',
 					'values' => array(
 						'desc' => __( 'Descending', 'cherry-services' ),
-						'asc'  => __( 'Ascending', 'cherry-services' )
+						'asc'  => __( 'Ascending', 'cherry-services' ),
 					),
 					'default' => 'DESC',
 					'name' => __( 'Order', 'cherry-services' ),
@@ -141,7 +141,7 @@ class Cherry_Services_Shortcode {
 						'modified'      => __( 'Last modified date', 'cherry-services' ),
 						'rand'          => __( 'Random', 'cherry-services' ),
 						'comment_count' => __( 'Comments number', 'cherry-services' ),
-						'menu_order'    => __( 'Menu order', 'cherry-services' )
+						'menu_order'    => __( 'Menu order', 'cherry-services' ),
 					),
 					'default' => 'date',
 					'name'    => __( 'Order by', 'cherry-services' ),
@@ -250,7 +250,7 @@ class Cherry_Services_Shortcode {
 	 * Add services specific macros buttons into caousel shortcode
 	 *
 	 * @since  1.0.0
-	 * @param  array  $macros_buttons  default macros buttons.
+	 * @param  array $macros_buttons default macros buttons.
 	 * @return array
 	 */
 	public function extend_carousel_macros( $macros_buttons ) {
@@ -474,7 +474,6 @@ class Cherry_Services_Shortcode {
 		}
 		return self::$instance;
 	}
-
 }
 
 Cherry_Services_Shortcode::get_instance();
