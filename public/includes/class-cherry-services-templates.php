@@ -55,9 +55,6 @@ class Cherry_Services_Templater {
 		// Add a filter to the page attributes metabox to inject our template into the page template cache.
 		add_filter( 'theme_page_templates', array( $this, 'register_custom_template' ), 10, 3 );
 
-		// Add a filter to the save post in order to inject out template into the page cache.
-		add_filter( 'wp_insert_post_data', array( $this, 'register_templates' ) );
-
 		// Add a filter to the template include in order to determine if the page has our template assigned and return it's path.
 		add_filter( 'template_include', array( $this, 'view_template' ) );
 
@@ -102,12 +99,12 @@ class Cherry_Services_Templater {
 
 		// Must work only for public.
 		if ( is_admin() ) {
-			return false;
+			return $query;
 		}
 
 		// And only for main query
 		if ( ! $query->is_main_query() ) {
-			return false;
+			return $query;
 		}
 
 		$is_archive = $query->is_post_type_archive( CHERRY_SERVICES_NAME );
