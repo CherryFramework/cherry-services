@@ -4,6 +4,13 @@ A services management plugin for WordPress.
 
 ##Change log##
 
+#### v1.0.4 ####
+
+* UPD: New custom page templates registration logic
+* FIX: WordPress Code Style Guide
+* FIX: Setting posts per archive page
+* FIX: Services category listing template
+
 #### v1.0.3 ####
 
 * UPD: Minify CSS and JS
