@@ -52,8 +52,8 @@ class Cherry_Services_Templater {
 		// Set posts per archive services page
 		add_action( 'pre_get_posts', array( $this, 'set_posts_per_archive_page' ) );
 
-		// Add a filter to the page attributes metabox to inject our template into the page template cache.
-		add_filter( 'theme_page_templates', array( $this, 'register_custom_template' ), 10, 3 );
+		// Add our template into the page template cache.
+		add_filter( 'admin_head', array( $this, 'register_custom_template' ), 10, 3 );
 
 		// Add a filter to the template include in order to determine if the page has our template assigned and return it's path.
 		add_filter( 'template_include', array( $this, 'view_template' ) );
@@ -74,18 +74,27 @@ class Cherry_Services_Templater {
 	 * Register custom page tamplate for Services page
 	 *
 	 * @since  1.0.4
-	 * @param  array  $page_templates existing page templates array.
-	 * @param  object $instance       instanse of WP_Theme class.
-	 * @param  object $post           current post object.
-	 * @return array
+	 * @return void|bool
 	 */
-	public function register_custom_template( $page_templates, $instance, $post ) {
+	public function register_custom_template() {
 
-		if ( ! empty( $post->post_type ) && 'page' === $post->post_type ) {
-			$page_templates = array_merge( $page_templates, $this->templates );
+		global $current_screen;
+
+		if ( ! in_array( $current_screen->id, array( 'edit-page', 'page' ) ) ) {
+			return false;
 		}
 
-		return $page_templates;
+		// Create default cache
+		$page_templates = wp_get_theme()->get_page_templates();
+
+		// Generate cache key to rewite
+		$cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
+
+		$page_templates = array_merge( $page_templates, $this->templates );
+
+		wp_cache_delete( $cache_key , 'themes' );
+		wp_cache_add( $cache_key, $page_templates, 'themes', 1800 );
+
 	}
 
 	/**
