@@ -64,11 +64,23 @@ class Cherry_Services_Templater {
 
 		add_filter( 'cherry_attr_post', array( $this, 'page_template_classes' ), 10, 2 );
 
+		add_filter( 'theme_page_templates', array( $this, 'add_templates' ) );
+
 		// Add your templates to this array.
 		$this->templates = array(
 			'template-services.php' => __( 'Services Page', 'cherry-services' ),
 		);
 
+	}
+
+	/**
+	 * Add services page templates.
+	 *
+	 * @param  array $templates Existing templates array.
+	 * @return array
+	 */
+	public function add_templates( $templates = array() ) {
+		return array_merge( $templates, $this->templates );
 	}
 
 	/**
