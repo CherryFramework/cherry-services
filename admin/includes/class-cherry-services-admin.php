@@ -53,6 +53,10 @@ class Cherry_Services_Admin {
 
 		if ( ! empty( $screen->post_type ) && CHERRY_SERVICES_NAME === $screen->post_type ) {
 			require_once( CHERRY_SERVICES_DIR . 'admin/includes/class-cherry-services-meta-boxes.php' );
+
+			require_once( CHERRY_SERVICES_DIR . 'standalone/inc/class-cherry-api-js.php' );
+			require_once( CHERRY_SERVICES_DIR . 'standalone/inc/class-cherry-interface-builder.php' );
+			Cherry4_Interface_Builder::load();
 		}
 
 	}

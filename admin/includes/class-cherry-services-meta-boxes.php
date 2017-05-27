@@ -124,7 +124,7 @@ class Cherry_Services_Meta_Boxes {
 	 */
 	public function callback_metabox( $post, $metabox ) {
 
-		if ( ! class_exists( 'Cherry_Interface_Builder' ) ) {
+		if ( ! class_exists( 'Cherry4_Interface_Builder' ) ) {
 			return;
 		}
 
@@ -134,7 +134,7 @@ class Cherry_Services_Meta_Boxes {
 		// Add an nonce field so we can check for it later.
 		wp_nonce_field( plugin_basename( __FILE__ ), 'cherry_services_meta_nonce' );
 
-		$builder = new Cherry_Interface_Builder(
+		$builder = new Cherry4_Interface_Builder(
 			array(
 				'name_prefix' => CHERRY_SERVICES_POSTMETA,
 				'pattern'     => 'inline',

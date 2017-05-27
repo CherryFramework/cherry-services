@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Cherry Services
- * Plugin URI:  http://www.cherryframework.com/
- * Description: A services management plugin for WordPress.
+ * Plugin URI:  https://github.com/CherryFramework/cherry-services/tree/cherry-site
+ * Description: A services management plugin for WordPress. Special version for http://www.cherryframework.com/
  * Version:     1.0.5
  * Author:      Cherry Team
  * Author URI:  http://www.cherryframework.com/
@@ -147,14 +147,15 @@ if ( ! class_exists( 'Cherry_Services' ) ) {
 
 			if ( is_admin() ) {
 				require_once( CHERRY_SERVICES_DIR . 'admin/includes/class-cherry-services-admin.php' );
-				require_once( CHERRY_SERVICES_DIR . 'admin/includes/class-cherry-update/class-cherry-plugin-update.php' );
 
-				$Cherry_Plugin_Update = new Cherry_Plugin_Update();
-				$Cherry_Plugin_Update -> init( array(
-						'version'			=> CHERRY_SERVICES_VERSION,
-						'slug'				=> CHERRY_SERVICES_SLUG,
-						'repository_name'	=> CHERRY_SERVICES_SLUG,
-				));
+				// require_once( CHERRY_SERVICES_DIR . 'admin/includes/class-cherry-update/class-cherry-plugin-update.php' );
+
+				// $Cherry_Plugin_Update = new Cherry_Plugin_Update();
+				// $Cherry_Plugin_Update -> init( array(
+				// 		'version'			=> CHERRY_SERVICES_VERSION,
+				// 		'slug'				=> CHERRY_SERVICES_SLUG,
+				// 		'repository_name'	=> CHERRY_SERVICES_SLUG,
+				// ));
 			}
 		}
 
