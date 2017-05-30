@@ -208,6 +208,7 @@ class Cherry_Services_Shortcode {
 					'values' => array(
 						'boxes'         => __( 'Boxes', 'cherry-services' ),
 						'pricing-table' => __( 'Pricing Table', 'cherry-services' ),
+						'services-list' => __( 'Services List', 'cherry-services' ),
 					),
 					'default' => 'boxes',
 					'name'    => __( 'Layout type', 'cherry-services' ),
@@ -455,7 +456,7 @@ class Cherry_Services_Shortcode {
 		$atts['before_title'] = '<h3 class="cherry-services_title">';
 		$atts['after_title']  = '</h3>';
 
-		$atts['layout'] = in_array( $atts['layout'], array( 'boxed', 'pricing-table' ) ) ? $atts['layout'] : 'boxed';
+		$atts['layout'] = in_array( $atts['layout'], array( 'boxed', 'pricing-table', 'services-list' ) ) ? $atts['layout'] : 'boxed';
 
 		return $this->data->the_services( $atts );
 	}
